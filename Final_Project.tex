@@ -1,0 +1,1602 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Untitled},
+  pdfauthor={Joe Paul},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Untitled}
+\author{Joe Paul}
+\date{08/01/2024}
+
+\begin{document}
+\maketitle
+
+\subsection{Setup}\label{setup}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(data.table)}
+\FunctionTok{library}\NormalTok{(sqldf)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: gsubfn
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: proto
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: RSQLite
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(GGally)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Registered S3 method overwritten by 'GGally':
+##   method from   
+##   +.gg   ggplot2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(leaps)}
+\FunctionTok{library}\NormalTok{(MASS)}
+\FunctionTok{library}\NormalTok{(glmnet)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: Matrix
+\end{verbatim}
+
+\begin{verbatim}
+## Loaded glmnet 4.1-8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(pls)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'pls'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:stats':
+## 
+##     loadings
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(boot)}
+\FunctionTok{library}\NormalTok{(gridExtra)}
+\FunctionTok{library}\NormalTok{(splines)}
+\FunctionTok{library}\NormalTok{(caret)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: lattice
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'lattice'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:boot':
+## 
+##     melanoma
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'caret'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:pls':
+## 
+##     R2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(alr4)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: car
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: carData
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'car'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:boot':
+## 
+##     logit
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: effects
+\end{verbatim}
+
+\begin{verbatim}
+## Use the command
+##     lattice::trellis.par.set(effectsTheme())
+##   to customize lattice options for effects plots.
+## See ?effectsTheme for details.
+\end{verbatim}
+
+\subsection{Read Data}\label{read-data}
+
+This data csv is 2GB, way too big to read in on its own, so lets filter
+it down a bit.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{csv\_pth }\OtherTok{=} \StringTok{"C:}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Users}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{jpaul4}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Downloads}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Transportation\_Network\_Providers\_{-}\_Trips\_\_2023{-}\_\_20240801.csv"}
+
+\CommentTok{\#Get coloumn names}
+\NormalTok{top\_10 }\OtherTok{=}\NormalTok{ sqldf}\SpecialCharTok{::}\FunctionTok{read.csv.sql}\NormalTok{(csv\_pth, }\AttributeTok{sql=} \StringTok{"select * from file limit 10"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Select a sample from this CSV to use as our training
+data}\label{select-a-sample-from-this-csv-to-use-as-our-training-data}
+
+I selected a random set of 2000 rows using the SQL command ``SELECT *
+FROM chic\_trips ORDER BY RANDOM() LIMIT 2000;'' for training and
+testing.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{csv\_sample }\OtherTok{=} \StringTok{"C:}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Users}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{jpaul4}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Box}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Summer 2024}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{S2405}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Projects}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Final Project}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{result\_set.csv"}
+\NormalTok{trips }\OtherTok{=} \FunctionTok{read.csv}\NormalTok{(csv\_sample)}
+\FunctionTok{head}\NormalTok{(trips)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    PK_UID                                  Trip_ID   Trip_Start_Timestamp
+## 1 1078724 a45e404c67637a35ba8c68eb02abd0ef57a27851 06/26/2024 10:15:00 PM
+## 2 5948098 9bd17c2ea621b7c1bba3725d89c18b45ac574971 06/07/2024 03:15:00 PM
+## 3 1058729 92cc46f8531e33eee0e5a21cda3cb34d7997e0c8 06/27/2024 12:45:00 AM
+## 4 2375826 4c4659ad8d22f0f0177e79e2140023a9ffea9ea2 06/21/2024 08:30:00 PM
+## 5  559953 aceb9a135afb3a822bce97dbf5f80b31fa951c3d 06/28/2024 10:30:00 PM
+## 6 7199958 8fd92610f23c8513b2618355ea3dbaf1ac734e37 06/02/2024 05:30:00 AM
+##       Trip_End_Timestamp Trip_Seconds Trip_Miles Percent_Time_Chicago
+## 1 06/26/2024 10:30:00 PM         1124        4.9                    1
+## 2 06/07/2024 03:30:00 PM          896        3.0                    1
+## 3 06/27/2024 01:30:00 AM         1994       27.8                    0
+## 4 06/21/2024 09:15:00 PM         2963       26.9                    1
+## 5 06/28/2024 10:45:00 PM          816        2.4                    1
+## 6 06/02/2024 06:00:00 AM         2260       32.4                    1
+##   Percent_Distance_Chicago Pickup_Census_Tract Dropoff_Census_Tract
+## 1                        1                  NA                   NA
+## 2                        1                  NA                   NA
+## 3                        0         17031980000                   NA
+## 4                        1                  NA                   NA
+## 5                        1         17031081403          17031842200
+## 6                        1         17031820901          17031980000
+##   Pickup_Community_Area Dropoff_Community_Area Fare Tip Additional_Charges
+## 1                    28                      6 32.5   0               1.23
+## 2                    28                     24 17.5   0               5.68
+## 3                    76                     NA 60.0  12              21.39
+## 4                    NA                      6 22.5   0               6.95
+## 5                     8                      8 10.0   0               1.23
+## 6                    NA                     76 47.5  12              28.12
+##   Trip_Total Shared_Trip_Authorized Shared_Trip_Match Trips_Pooled
+## 1      33.73                  false             false            1
+## 2      23.18                  false             false            1
+## 3      93.39                  false             false            1
+## 4      29.45                  false             false            1
+## 5      11.23                  false             false            1
+## 6      87.62                  false             false            1
+##   Pickup_Centroid_Latitude Pickup_Centroid_Longitude
+## 1                 41.87400                 -87.66352
+## 2                 41.87400                 -87.66352
+## 3                 41.97907                 -87.90304
+## 4                       NA                        NA
+## 5                 41.89092                 -87.61887
+## 6                       NA                        NA
+##               Pickup_Centroid_Location Dropoff_Centroid_Latitude
+## 1  POINT (-87.6635175498 41.874005383)                  41.94423
+## 2  POINT (-87.6635175498 41.874005383)                  41.90121
+## 3 POINT (-87.9030396611 41.9790708201)                        NA
+## 4                                                       41.94423
+## 5 POINT (-87.6188683546 41.8909220259)                  41.90494
+## 6                                                       41.97907
+##   Dropoff_Centroid_Longitude            Dropoff_Centroid_Location
+## 1                  -87.65600 POINT (-87.6559981815 41.9442266014)
+## 2                  -87.67636 POINT (-87.6763559892 41.9012069941)
+## 3                         NA                                     
+## 4                  -87.65600 POINT (-87.6559981815 41.9442266014)
+## 5                  -87.64991 POINT (-87.6499072264 41.9049353016)
+## 6                  -87.90304 POINT (-87.9030396611 41.9790708201)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(trips)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      PK_UID          Trip_ID          Trip_Start_Timestamp Trip_End_Timestamp
+##  Min.   :   2180   Length:2000        Length:2000          Length:2000       
+##  1st Qu.:1857128   Class :character   Class :character     Class :character  
+##  Median :3728684   Mode  :character   Mode  :character     Mode  :character  
+##  Mean   :3749083                                                             
+##  3rd Qu.:5638863                                                             
+##  Max.   :7588816                                                             
+##                                                                              
+##   Trip_Seconds      Trip_Miles     Percent_Time_Chicago
+##  Min.   :  55.0   Min.   : 0.200   Min.   :0.0000      
+##  1st Qu.: 615.8   1st Qu.: 2.175   1st Qu.:1.0000      
+##  Median : 991.5   Median : 4.400   Median :1.0000      
+##  Mean   :1218.3   Mean   : 7.336   Mean   :0.9325      
+##  3rd Qu.:1583.0   3rd Qu.:10.000   3rd Qu.:1.0000      
+##  Max.   :5937.0   Max.   :63.900   Max.   :1.0000      
+##                                    NA's   :1           
+##  Percent_Distance_Chicago Pickup_Census_Tract Dropoff_Census_Tract
+##  Min.   :0.0000           Min.   :1.703e+10   Min.   :1.703e+10   
+##  1st Qu.:1.0000           1st Qu.:1.703e+10   1st Qu.:1.703e+10   
+##  Median :1.0000           Median :1.703e+10   Median :1.703e+10   
+##  Mean   :0.9275           Mean   :1.703e+10   Mean   :1.703e+10   
+##  3rd Qu.:1.0000           3rd Qu.:1.703e+10   3rd Qu.:1.703e+10   
+##  Max.   :1.0000           Max.   :1.703e+10   Max.   :1.703e+10   
+##  NA's   :1                NA's   :775         NA's   :775         
+##  Pickup_Community_Area Dropoff_Community_Area      Fare             Tip        
+##  Min.   : 1.00         Min.   : 1.00          Min.   :  0.00   Min.   : 0.000  
+##  1st Qu.: 8.00         1st Qu.: 8.00          1st Qu.: 10.00   1st Qu.: 0.000  
+##  Median :25.00         Median :28.00          Median : 15.00   Median : 0.000  
+##  Mean   :28.14         Mean   :29.01          Mean   : 19.02   Mean   : 1.527  
+##  3rd Qu.:37.00         3rd Qu.:38.00          3rd Qu.: 22.50   3rd Qu.: 2.000  
+##  Max.   :77.00         Max.   :77.00          Max.   :110.00   Max.   :38.000  
+##  NA's   :189           NA's   :185            NA's   :1        NA's   :1       
+##  Additional_Charges   Trip_Total     Shared_Trip_Authorized Shared_Trip_Match 
+##  Min.   : 0.000     Min.   :  0.00   Length:2000            Length:2000       
+##  1st Qu.: 2.010     1st Qu.: 13.73   Class :character       Class :character  
+##  Median : 3.700     Median : 19.43   Mode  :character       Mode  :character  
+##  Mean   : 4.691     Mean   : 25.24                                            
+##  3rd Qu.: 5.715     3rd Qu.: 29.69                                            
+##  Max.   :62.680     Max.   :129.41                                            
+##  NA's   :1          NA's   :1                                                 
+##   Trips_Pooled   Pickup_Centroid_Latitude Pickup_Centroid_Longitude
+##  Min.   :1.000   Min.   :41.66            Min.   :-87.91           
+##  1st Qu.:1.000   1st Qu.:41.87            1st Qu.:-87.69           
+##  Median :1.000   Median :41.89            Median :-87.65           
+##  Mean   :1.042   Mean   :41.89            Mean   :-87.67           
+##  3rd Qu.:1.000   3rd Qu.:41.94            3rd Qu.:-87.63           
+##  Max.   :5.000   Max.   :42.02            Max.   :-87.53           
+##                  NA's   :183              NA's   :183              
+##  Pickup_Centroid_Location Dropoff_Centroid_Latitude Dropoff_Centroid_Longitude
+##  Length:2000              Min.   :41.66             Min.   :-87.91            
+##  Class :character         1st Qu.:41.87             1st Qu.:-87.70            
+##  Mode  :character         Median :41.89             Median :-87.66            
+##                           Mean   :41.89             Mean   :-87.67            
+##                           3rd Qu.:41.94             3rd Qu.:-87.63            
+##                           Max.   :42.02             Max.   :-87.55            
+##                           NA's   :177               NA's   :177               
+##  Dropoff_Centroid_Location
+##  Length:2000              
+##  Class :character         
+##  Mode  :character         
+##                           
+##                           
+##                           
+## 
+\end{verbatim}
+
+\subsection{Add some calc columns}\label{add-some-calc-columns}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{trips}\SpecialCharTok{$}\NormalTok{Trip\_Start\_Timestamp }\OtherTok{=} \FunctionTok{as.Date}\NormalTok{(trips}\SpecialCharTok{$}\NormalTok{Trip\_Start\_Timestamp, }\AttributeTok{format=}\StringTok{"\%m/\%d/\%Y"}\NormalTok{)}
+\NormalTok{trips}\SpecialCharTok{$}\NormalTok{dow }\OtherTok{=} \FunctionTok{weekdays}\NormalTok{(trips}\SpecialCharTok{$}\NormalTok{Trip\_Start\_Timestamp)}
+\FunctionTok{head}\NormalTok{(trips)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    PK_UID                                  Trip_ID Trip_Start_Timestamp
+## 1 1078724 a45e404c67637a35ba8c68eb02abd0ef57a27851           2024-06-26
+## 2 5948098 9bd17c2ea621b7c1bba3725d89c18b45ac574971           2024-06-07
+## 3 1058729 92cc46f8531e33eee0e5a21cda3cb34d7997e0c8           2024-06-27
+## 4 2375826 4c4659ad8d22f0f0177e79e2140023a9ffea9ea2           2024-06-21
+## 5  559953 aceb9a135afb3a822bce97dbf5f80b31fa951c3d           2024-06-28
+## 6 7199958 8fd92610f23c8513b2618355ea3dbaf1ac734e37           2024-06-02
+##       Trip_End_Timestamp Trip_Seconds Trip_Miles Percent_Time_Chicago
+## 1 06/26/2024 10:30:00 PM         1124        4.9                    1
+## 2 06/07/2024 03:30:00 PM          896        3.0                    1
+## 3 06/27/2024 01:30:00 AM         1994       27.8                    0
+## 4 06/21/2024 09:15:00 PM         2963       26.9                    1
+## 5 06/28/2024 10:45:00 PM          816        2.4                    1
+## 6 06/02/2024 06:00:00 AM         2260       32.4                    1
+##   Percent_Distance_Chicago Pickup_Census_Tract Dropoff_Census_Tract
+## 1                        1                  NA                   NA
+## 2                        1                  NA                   NA
+## 3                        0         17031980000                   NA
+## 4                        1                  NA                   NA
+## 5                        1         17031081403          17031842200
+## 6                        1         17031820901          17031980000
+##   Pickup_Community_Area Dropoff_Community_Area Fare Tip Additional_Charges
+## 1                    28                      6 32.5   0               1.23
+## 2                    28                     24 17.5   0               5.68
+## 3                    76                     NA 60.0  12              21.39
+## 4                    NA                      6 22.5   0               6.95
+## 5                     8                      8 10.0   0               1.23
+## 6                    NA                     76 47.5  12              28.12
+##   Trip_Total Shared_Trip_Authorized Shared_Trip_Match Trips_Pooled
+## 1      33.73                  false             false            1
+## 2      23.18                  false             false            1
+## 3      93.39                  false             false            1
+## 4      29.45                  false             false            1
+## 5      11.23                  false             false            1
+## 6      87.62                  false             false            1
+##   Pickup_Centroid_Latitude Pickup_Centroid_Longitude
+## 1                 41.87400                 -87.66352
+## 2                 41.87400                 -87.66352
+## 3                 41.97907                 -87.90304
+## 4                       NA                        NA
+## 5                 41.89092                 -87.61887
+## 6                       NA                        NA
+##               Pickup_Centroid_Location Dropoff_Centroid_Latitude
+## 1  POINT (-87.6635175498 41.874005383)                  41.94423
+## 2  POINT (-87.6635175498 41.874005383)                  41.90121
+## 3 POINT (-87.9030396611 41.9790708201)                        NA
+## 4                                                       41.94423
+## 5 POINT (-87.6188683546 41.8909220259)                  41.90494
+## 6                                                       41.97907
+##   Dropoff_Centroid_Longitude            Dropoff_Centroid_Location       dow
+## 1                  -87.65600 POINT (-87.6559981815 41.9442266014) Wednesday
+## 2                  -87.67636 POINT (-87.6763559892 41.9012069941)    Friday
+## 3                         NA                                       Thursday
+## 4                  -87.65600 POINT (-87.6559981815 41.9442266014)    Friday
+## 5                  -87.64991 POINT (-87.6499072264 41.9049353016)    Friday
+## 6                  -87.90304 POINT (-87.9030396611 41.9790708201)    Sunday
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(trips)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      PK_UID          Trip_ID          Trip_Start_Timestamp Trip_End_Timestamp
+##  Min.   :   2180   Length:2000        Min.   :2024-06-01   Length:2000       
+##  1st Qu.:1857128   Class :character   1st Qu.:2024-06-08   Class :character  
+##  Median :3728684   Mode  :character   Median :2024-06-15   Mode  :character  
+##  Mean   :3749083                      Mean   :2024-06-15                     
+##  3rd Qu.:5638863                      3rd Qu.:2024-06-23                     
+##  Max.   :7588816                      Max.   :2024-06-30                     
+##                                                                              
+##   Trip_Seconds      Trip_Miles     Percent_Time_Chicago
+##  Min.   :  55.0   Min.   : 0.200   Min.   :0.0000      
+##  1st Qu.: 615.8   1st Qu.: 2.175   1st Qu.:1.0000      
+##  Median : 991.5   Median : 4.400   Median :1.0000      
+##  Mean   :1218.3   Mean   : 7.336   Mean   :0.9325      
+##  3rd Qu.:1583.0   3rd Qu.:10.000   3rd Qu.:1.0000      
+##  Max.   :5937.0   Max.   :63.900   Max.   :1.0000      
+##                                    NA's   :1           
+##  Percent_Distance_Chicago Pickup_Census_Tract Dropoff_Census_Tract
+##  Min.   :0.0000           Min.   :1.703e+10   Min.   :1.703e+10   
+##  1st Qu.:1.0000           1st Qu.:1.703e+10   1st Qu.:1.703e+10   
+##  Median :1.0000           Median :1.703e+10   Median :1.703e+10   
+##  Mean   :0.9275           Mean   :1.703e+10   Mean   :1.703e+10   
+##  3rd Qu.:1.0000           3rd Qu.:1.703e+10   3rd Qu.:1.703e+10   
+##  Max.   :1.0000           Max.   :1.703e+10   Max.   :1.703e+10   
+##  NA's   :1                NA's   :775         NA's   :775         
+##  Pickup_Community_Area Dropoff_Community_Area      Fare             Tip        
+##  Min.   : 1.00         Min.   : 1.00          Min.   :  0.00   Min.   : 0.000  
+##  1st Qu.: 8.00         1st Qu.: 8.00          1st Qu.: 10.00   1st Qu.: 0.000  
+##  Median :25.00         Median :28.00          Median : 15.00   Median : 0.000  
+##  Mean   :28.14         Mean   :29.01          Mean   : 19.02   Mean   : 1.527  
+##  3rd Qu.:37.00         3rd Qu.:38.00          3rd Qu.: 22.50   3rd Qu.: 2.000  
+##  Max.   :77.00         Max.   :77.00          Max.   :110.00   Max.   :38.000  
+##  NA's   :189           NA's   :185            NA's   :1        NA's   :1       
+##  Additional_Charges   Trip_Total     Shared_Trip_Authorized Shared_Trip_Match 
+##  Min.   : 0.000     Min.   :  0.00   Length:2000            Length:2000       
+##  1st Qu.: 2.010     1st Qu.: 13.73   Class :character       Class :character  
+##  Median : 3.700     Median : 19.43   Mode  :character       Mode  :character  
+##  Mean   : 4.691     Mean   : 25.24                                            
+##  3rd Qu.: 5.715     3rd Qu.: 29.69                                            
+##  Max.   :62.680     Max.   :129.41                                            
+##  NA's   :1          NA's   :1                                                 
+##   Trips_Pooled   Pickup_Centroid_Latitude Pickup_Centroid_Longitude
+##  Min.   :1.000   Min.   :41.66            Min.   :-87.91           
+##  1st Qu.:1.000   1st Qu.:41.87            1st Qu.:-87.69           
+##  Median :1.000   Median :41.89            Median :-87.65           
+##  Mean   :1.042   Mean   :41.89            Mean   :-87.67           
+##  3rd Qu.:1.000   3rd Qu.:41.94            3rd Qu.:-87.63           
+##  Max.   :5.000   Max.   :42.02            Max.   :-87.53           
+##                  NA's   :183              NA's   :183              
+##  Pickup_Centroid_Location Dropoff_Centroid_Latitude Dropoff_Centroid_Longitude
+##  Length:2000              Min.   :41.66             Min.   :-87.91            
+##  Class :character         1st Qu.:41.87             1st Qu.:-87.70            
+##  Mode  :character         Median :41.89             Median :-87.66            
+##                           Mean   :41.89             Mean   :-87.67            
+##                           3rd Qu.:41.94             3rd Qu.:-87.63            
+##                           Max.   :42.02             Max.   :-87.55            
+##                           NA's   :177               NA's   :177               
+##  Dropoff_Centroid_Location     dow           
+##  Length:2000               Length:2000       
+##  Class :character          Class :character  
+##  Mode  :character          Mode  :character  
+##                                              
+##                                              
+##                                              
+## 
+\end{verbatim}
+
+\subsection{Get rid of some not useful columns that contain info like
+identifiers and
+coordinates}\label{get-rid-of-some-not-useful-columns-that-contain-info-like-identifiers-and-coordinates}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{trips\_int }\OtherTok{=}\NormalTok{ trips[,}\FunctionTok{c}\NormalTok{(}\StringTok{"Trip\_Seconds"}\NormalTok{,}\StringTok{"Trip\_Miles"}\NormalTok{,}\StringTok{"Percent\_Time\_Chicago"}\NormalTok{,}\StringTok{"Percent\_Distance\_Chicago"}\NormalTok{,}\StringTok{"Fare"}\NormalTok{,}\StringTok{"Tip"}\NormalTok{,}\StringTok{"Additional\_Charges"}\NormalTok{,}\StringTok{"Trip\_Total"}\NormalTok{,}\StringTok{"Trips\_Pooled"}\NormalTok{,}\StringTok{"Shared\_Trip\_Authorized"}\NormalTok{,}\StringTok{"Shared\_Trip\_Match"}\NormalTok{,}\StringTok{"dow"}\NormalTok{)]}
+\FunctionTok{summary}\NormalTok{(trips\_int)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Trip_Seconds      Trip_Miles     Percent_Time_Chicago
+##  Min.   :  55.0   Min.   : 0.200   Min.   :0.0000      
+##  1st Qu.: 615.8   1st Qu.: 2.175   1st Qu.:1.0000      
+##  Median : 991.5   Median : 4.400   Median :1.0000      
+##  Mean   :1218.3   Mean   : 7.336   Mean   :0.9325      
+##  3rd Qu.:1583.0   3rd Qu.:10.000   3rd Qu.:1.0000      
+##  Max.   :5937.0   Max.   :63.900   Max.   :1.0000      
+##                                    NA's   :1           
+##  Percent_Distance_Chicago      Fare             Tip         Additional_Charges
+##  Min.   :0.0000           Min.   :  0.00   Min.   : 0.000   Min.   : 0.000    
+##  1st Qu.:1.0000           1st Qu.: 10.00   1st Qu.: 0.000   1st Qu.: 2.010    
+##  Median :1.0000           Median : 15.00   Median : 0.000   Median : 3.700    
+##  Mean   :0.9275           Mean   : 19.02   Mean   : 1.527   Mean   : 4.691    
+##  3rd Qu.:1.0000           3rd Qu.: 22.50   3rd Qu.: 2.000   3rd Qu.: 5.715    
+##  Max.   :1.0000           Max.   :110.00   Max.   :38.000   Max.   :62.680    
+##  NA's   :1                NA's   :1        NA's   :1        NA's   :1         
+##    Trip_Total      Trips_Pooled   Shared_Trip_Authorized Shared_Trip_Match 
+##  Min.   :  0.00   Min.   :1.000   Length:2000            Length:2000       
+##  1st Qu.: 13.73   1st Qu.:1.000   Class :character       Class :character  
+##  Median : 19.43   Median :1.000   Mode  :character       Mode  :character  
+##  Mean   : 25.24   Mean   :1.042                                            
+##  3rd Qu.: 29.69   3rd Qu.:1.000                                            
+##  Max.   :129.41   Max.   :5.000                                            
+##  NA's   :1                                                                 
+##      dow           
+##  Length:2000       
+##  Class :character  
+##  Mode  :character  
+##                    
+##                    
+##                    
+## 
+\end{verbatim}
+
+\subsection{Check if the trip\_total column is just the sum of the other
+three cost columns and get rid of it if so to not cause dependent
+columns}\label{check-if-the-trip_total-column-is-just-the-sum-of-the-other-three-cost-columns-and-get-rid-of-it-if-so-to-not-cause-dependent-columns}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{trips\_int}\SpecialCharTok{$}\NormalTok{total\_check }\OtherTok{=} \FunctionTok{with}\NormalTok{(trips\_int,trips\_int}\SpecialCharTok{$}\NormalTok{Fare }\SpecialCharTok{+}\NormalTok{ trips\_int}\SpecialCharTok{$}\NormalTok{Tip }\SpecialCharTok{+}\NormalTok{ trips\_int}\SpecialCharTok{$}\NormalTok{Tip }\SpecialCharTok{+}\NormalTok{ trips\_int}\SpecialCharTok{$}\NormalTok{Additional\_Charges}\SpecialCharTok{{-}}\NormalTok{trips\_int}\SpecialCharTok{$}\NormalTok{Trip\_Total)}
+\FunctionTok{summary}\NormalTok{(trips\_int}\SpecialCharTok{$}\NormalTok{total\_check)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+##   0.000   0.000   0.000   1.527   2.000  38.000       1
+\end{verbatim}
+
+\subsection{Its inconsitent so we will clean by just dropping this
+column to be
+safe}\label{its-inconsitent-so-we-will-clean-by-just-dropping-this-column-to-be-safe}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{trips\_int}\SpecialCharTok{$}\NormalTok{total\_check }\OtherTok{=} \ConstantTok{NULL}
+\NormalTok{trips\_int}\SpecialCharTok{$}\NormalTok{Trip\_Total }\OtherTok{=} \ConstantTok{NULL}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Check for nulls}\label{check-for-nulls}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(trips\_int)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Trip_Seconds Trip_Miles Percent_Time_Chicago Percent_Distance_Chicago Fare
+## 1         1124        4.9                    1                        1 32.5
+## 2          896        3.0                    1                        1 17.5
+## 3         1994       27.8                    0                        0 60.0
+## 4         2963       26.9                    1                        1 22.5
+## 5          816        2.4                    1                        1 10.0
+## 6         2260       32.4                    1                        1 47.5
+##   Tip Additional_Charges Trips_Pooled Shared_Trip_Authorized Shared_Trip_Match
+## 1   0               1.23            1                  false             false
+## 2   0               5.68            1                  false             false
+## 3  12              21.39            1                  false             false
+## 4   0               6.95            1                  false             false
+## 5   0               1.23            1                  false             false
+## 6  12              28.12            1                  false             false
+##         dow
+## 1 Wednesday
+## 2    Friday
+## 3  Thursday
+## 4    Friday
+## 5    Friday
+## 6    Sunday
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(trips\_int))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{trips\_int}\OtherTok{=}\NormalTok{trips\_int[}\FunctionTok{complete.cases}\NormalTok{(trips\_int),]}
+\FunctionTok{nrow}\NormalTok{(trips\_int)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1998
+\end{verbatim}
+
+\subsection{Create test and train
+samples}\label{create-test-and-train-samples}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{train\_ind }\OtherTok{=} \FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(trips\_int),}\FunctionTok{round}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(trips\_int)}\SpecialCharTok{*}\FloatTok{0.9}\NormalTok{))}
+\NormalTok{train }\OtherTok{\textless{}{-}}\NormalTok{ trips\_int[train\_ind,]}
+\NormalTok{test }\OtherTok{\textless{}{-}}\NormalTok{ trips\_int[}\SpecialCharTok{{-}}\NormalTok{train\_ind,]}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Do some exploration}\label{do-some-exploration}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggpairs}\NormalTok{(train)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Final_Project_files/figure-latex/unnamed-chunk-8-1.pdf}}
+
+\subsection{the two percent columns also do not seem useful so lets get
+rid of them
+too.}\label{the-two-percent-columns-also-do-not-seem-useful-so-lets-get-rid-of-them-too.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{trips\_int}\SpecialCharTok{$}\NormalTok{Percent\_Time\_Chicago }\OtherTok{=} \ConstantTok{NULL}
+\NormalTok{trips\_int}\SpecialCharTok{$}\NormalTok{Percent\_Distance\_Chicago }\OtherTok{=} \ConstantTok{NULL}
+\NormalTok{train }\OtherTok{\textless{}{-}}\NormalTok{ trips\_int[train\_ind,]}
+\NormalTok{test }\OtherTok{\textless{}{-}}\NormalTok{ trips\_int[}\SpecialCharTok{{-}}\NormalTok{train\_ind,]}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{I want to create a fare model from this data to use in my
+research. Lets find out what variables are important to
+fare.}\label{i-want-to-create-a-fare-model-from-this-data-to-use-in-my-research.-lets-find-out-what-variables-are-important-to-fare.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod }\OtherTok{=} \FunctionTok{lm}\NormalTok{(Fare}\SpecialCharTok{\textasciitilde{}}\NormalTok{.,}\AttributeTok{data =}\NormalTok{ train)}
+\FunctionTok{summary}\NormalTok{(mod)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Fare ~ ., data = train)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -31.136  -4.114  -1.440   2.645  52.441 
+## 
+## Coefficients:
+##                             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                 6.894924   1.621669   4.252 2.23e-05 ***
+## Trip_Seconds                0.004439   0.000379  11.714  < 2e-16 ***
+## Trip_Miles                  0.930867   0.045233  20.579  < 2e-16 ***
+## Tip                         0.798935   0.059870  13.344  < 2e-16 ***
+## Additional_Charges         -0.030049   0.053778  -0.559   0.5764    
+## Trips_Pooled               -0.792071   1.531302  -0.517   0.6050    
+## Shared_Trip_Authorizedtrue -4.890068   1.067234  -4.582 4.92e-06 ***
+## Shared_Trip_Matchtrue      -2.971141   2.640581  -1.125   0.2607    
+## dowMonday                  -0.085948   0.729787  -0.118   0.9063    
+## dowSaturday                 0.458279   0.623896   0.735   0.4627    
+## dowSunday                   1.223020   0.671381   1.822   0.0687 .  
+## dowThursday                -0.705050   0.703864  -1.002   0.3166    
+## dowTuesday                 -0.613870   0.728873  -0.842   0.3998    
+## dowWednesday               -0.520356   0.725991  -0.717   0.4736    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 7.886 on 1784 degrees of freedom
+## Multiple R-squared:  0.6857, Adjusted R-squared:  0.6835 
+## F-statistic: 299.5 on 13 and 1784 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+DOW doesn't appear to affect things but tip does, and thats of concern
+because there is an intuitive relationship between tip and fare. So we
+should drop this. But lets check correlation to be sure.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{train\_num }\OtherTok{=} \FunctionTok{subset}\NormalTok{(train, }\AttributeTok{select =} \SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(dow,Shared\_Trip\_Authorized,Shared\_Trip\_Match))}
+\NormalTok{test\_num }\OtherTok{=} \FunctionTok{subset}\NormalTok{(test, }\AttributeTok{select =} \SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(dow,Shared\_Trip\_Authorized,Shared\_Trip\_Match))}
+
+\NormalTok{cor\_mat }\OtherTok{=} \FunctionTok{cor}\NormalTok{(train\_num)}
+\NormalTok{cor\_mat}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                    Trip_Seconds Trip_Miles        Fare         Tip
+## Trip_Seconds         1.00000000  0.8167555  0.72560059  0.28135121
+## Trip_Miles           0.81675553  1.0000000  0.77914316  0.31294200
+## Fare                 0.72560059  0.7791432  1.00000000  0.43593463
+## Tip                  0.28135121  0.3129420  0.43593463  1.00000000
+## Additional_Charges   0.48296814  0.5638116  0.48942965  0.38281205
+## Trips_Pooled         0.09920895  0.0524975 -0.05279474 -0.04785573
+##                    Additional_Charges Trips_Pooled
+## Trip_Seconds               0.48296814   0.09920895
+## Trip_Miles                 0.56381163   0.05249750
+## Fare                       0.48942965  -0.05279474
+## Tip                        0.38281205  -0.04785573
+## Additional_Charges         1.00000000  -0.06813661
+## Trips_Pooled              -0.06813661   1.00000000
+\end{verbatim}
+
+Trip miles and trip seconds are highly correlated but thats fine, most
+fare models use both so we will hold onto it for now.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{trips\_int}\SpecialCharTok{$}\NormalTok{Tip }\OtherTok{=} \ConstantTok{NULL}
+\NormalTok{train }\OtherTok{\textless{}{-}}\NormalTok{ trips\_int[train\_ind,]}
+\NormalTok{test }\OtherTok{\textless{}{-}}\NormalTok{ trips\_int[}\SpecialCharTok{{-}}\NormalTok{train\_ind,]}
+\NormalTok{mod\_lm }\OtherTok{=} \FunctionTok{lm}\NormalTok{(Fare}\SpecialCharTok{\textasciitilde{}}\NormalTok{.,}\AttributeTok{data=}\NormalTok{train)}
+\FunctionTok{summary}\NormalTok{(mod\_lm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Fare ~ ., data = train)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -31.048  -4.116  -1.617   2.567  53.791 
+## 
+## Coefficients:
+##                              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                 6.5729591  1.7000144   3.866 0.000114 ***
+## Trip_Seconds                0.0046652  0.0003969  11.754  < 2e-16 ***
+## Trip_Miles                  0.9636633  0.0473538  20.350  < 2e-16 ***
+## Additional_Charges          0.1529081  0.0545190   2.805 0.005091 ** 
+## Trips_Pooled               -0.7980036  1.6054593  -0.497 0.619211    
+## Shared_Trip_Authorizedtrue -5.4702694  1.1179887  -4.893 1.08e-06 ***
+## Shared_Trip_Matchtrue      -3.1061418  2.7684382  -1.122 0.262020    
+## dowMonday                   0.1151217  0.7649658   0.150 0.880393    
+## dowSaturday                 0.7886384  0.6535943   1.207 0.227739    
+## dowSunday                   1.6976677  0.7029062   2.415 0.015826 *  
+## dowThursday                -0.7321640  0.7379478  -0.992 0.321253    
+## dowTuesday                 -0.4810313  0.7640993  -0.630 0.529076    
+## dowWednesday               -0.2442809  0.7608396  -0.321 0.748197    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 8.268 on 1785 degrees of freedom
+## Multiple R-squared:  0.6544, Adjusted R-squared:  0.6521 
+## F-statistic: 281.6 on 12 and 1785 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\subsection{LM}\label{lm}
+
+Only Shared\_Trip\_Authorized, trip\_miles, and trip\_seconds were
+significant so lets use these only. Additional\_Charges is significant
+but this is not a useful variable for our use case because this is not
+something we could know ahead of time or it would probably be fixed
+(taxes and fees). Sunday is now slightly significant so we will include
+that too.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod\_lm }\OtherTok{=} \FunctionTok{lm}\NormalTok{(Fare}\SpecialCharTok{\textasciitilde{}}\NormalTok{dow}\SpecialCharTok{+}\NormalTok{Shared\_Trip\_Authorized}\SpecialCharTok{+}\NormalTok{Trip\_Miles}\SpecialCharTok{+}\NormalTok{Trip\_Seconds,}\AttributeTok{data=}\NormalTok{train)}
+\FunctionTok{summary}\NormalTok{(mod\_lm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Fare ~ dow + Shared_Trip_Authorized + Trip_Miles + 
+##     Trip_Seconds, data = train)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -27.049  -4.250  -1.698   2.665  54.253 
+## 
+## Coefficients:
+##                              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                 6.2068590  0.5934005  10.460   <2e-16 ***
+## dowMonday                   0.2200200  0.7669919   0.287    0.774    
+## dowSaturday                 0.7154411  0.6557313   1.091    0.275    
+## dowSunday                   1.7009283  0.7052920   2.412    0.016 *  
+## dowThursday                -0.6983884  0.7400216  -0.944    0.345    
+## dowTuesday                 -0.4207460  0.7658362  -0.549    0.583    
+## dowWednesday               -0.2132377  0.7631928  -0.279    0.780    
+## Shared_Trip_Authorizedtrue -7.7497278  0.8284607  -9.354   <2e-16 ***
+## Trip_Miles                  1.0137258  0.0447858  22.635   <2e-16 ***
+## Trip_Seconds                0.0046016  0.0003953  11.640   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 8.299 on 1788 degrees of freedom
+## Multiple R-squared:  0.6512, Adjusted R-squared:  0.6495 
+## F-statistic: 370.9 on 9 and 1788 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+Simple LM has r\^{}2 of only 0.65, lets check its predictive accuracy.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test}\SpecialCharTok{$}\NormalTok{lm\_preds }\OtherTok{=} \FunctionTok{predict}\NormalTok{(mod\_lm,}\AttributeTok{newdata =}\NormalTok{ test)}
+\NormalTok{mse }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{((test}\SpecialCharTok{$}\NormalTok{Fare }\SpecialCharTok{{-}}\NormalTok{ test}\SpecialCharTok{$}\NormalTok{lm\_preds)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\FunctionTok{paste}\NormalTok{(}\StringTok{"MSE="}\NormalTok{,mse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "MSE= 52.2219365866465"
+\end{verbatim}
+
+\subsection{Lets use subsets to check and see if anything else is
+helpful}\label{lets-use-subsets-to-check-and-see-if-anything-else-is-helpful}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{regfit\_full }\OtherTok{=} \FunctionTok{regsubsets}\NormalTok{(Fare}\SpecialCharTok{\textasciitilde{}}\NormalTok{.,train)}
+\FunctionTok{summary}\NormalTok{(regfit\_full)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Subset selection object
+## Call: regsubsets.formula(Fare ~ ., train)
+## 12 Variables  (and intercept)
+##                            Forced in Forced out
+## Trip_Seconds                   FALSE      FALSE
+## Trip_Miles                     FALSE      FALSE
+## Additional_Charges             FALSE      FALSE
+## Trips_Pooled                   FALSE      FALSE
+## Shared_Trip_Authorizedtrue     FALSE      FALSE
+## Shared_Trip_Matchtrue          FALSE      FALSE
+## dowMonday                      FALSE      FALSE
+## dowSaturday                    FALSE      FALSE
+## dowSunday                      FALSE      FALSE
+## dowThursday                    FALSE      FALSE
+## dowTuesday                     FALSE      FALSE
+## dowWednesday                   FALSE      FALSE
+## 1 subsets of each size up to 8
+## Selection Algorithm: exhaustive
+##          Trip_Seconds Trip_Miles Additional_Charges Trips_Pooled
+## 1  ( 1 ) " "          "*"        " "                " "         
+## 2  ( 1 ) "*"          "*"        " "                " "         
+## 3  ( 1 ) "*"          "*"        " "                " "         
+## 4  ( 1 ) "*"          "*"        " "                " "         
+## 5  ( 1 ) "*"          "*"        "*"                " "         
+## 6  ( 1 ) "*"          "*"        "*"                " "         
+## 7  ( 1 ) "*"          "*"        "*"                " "         
+## 8  ( 1 ) "*"          "*"        "*"                " "         
+##          Shared_Trip_Authorizedtrue Shared_Trip_Matchtrue dowMonday dowSaturday
+## 1  ( 1 ) " "                        " "                   " "       " "        
+## 2  ( 1 ) " "                        " "                   " "       " "        
+## 3  ( 1 ) "*"                        " "                   " "       " "        
+## 4  ( 1 ) "*"                        " "                   " "       " "        
+## 5  ( 1 ) "*"                        " "                   " "       " "        
+## 6  ( 1 ) "*"                        "*"                   " "       " "        
+## 7  ( 1 ) "*"                        "*"                   " "       "*"        
+## 8  ( 1 ) "*"                        "*"                   " "       "*"        
+##          dowSunday dowThursday dowTuesday dowWednesday
+## 1  ( 1 ) " "       " "         " "        " "         
+## 2  ( 1 ) " "       " "         " "        " "         
+## 3  ( 1 ) " "       " "         " "        " "         
+## 4  ( 1 ) "*"       " "         " "        " "         
+## 5  ( 1 ) "*"       " "         " "        " "         
+## 6  ( 1 ) "*"       " "         " "        " "         
+## 7  ( 1 ) "*"       " "         " "        " "         
+## 8  ( 1 ) "*"       "*"         " "        " "
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{regfit\_full }\OtherTok{=} \FunctionTok{regsubsets}\NormalTok{(Fare}\SpecialCharTok{\textasciitilde{}}\NormalTok{.,}\AttributeTok{data =}\NormalTok{ train, }\AttributeTok{nvmax=}\DecValTok{8}\NormalTok{)}
+\NormalTok{reg\_sum }\OtherTok{=} \FunctionTok{summary}\NormalTok{(regfit\_full)}
+\FunctionTok{names}\NormalTok{(reg\_sum)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "which"  "rsq"    "rss"    "adjr2"  "cp"     "bic"    "outmat" "obj"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reg\_sum}\SpecialCharTok{$}\NormalTok{rsq}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6070641 0.6309810 0.6482925 0.6501786 0.6517873 0.6531103 0.6540107
+## [8] 0.6541979
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(reg\_sum}\SpecialCharTok{$}\NormalTok{rss,}\AttributeTok{xlab =} \StringTok{"\# of vars"}\NormalTok{,}\AttributeTok{ylab=}\StringTok{"RSS"}\NormalTok{,}\AttributeTok{type=}\StringTok{"l"}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(reg\_sum}\SpecialCharTok{$}\NormalTok{adjr2,}\AttributeTok{xlab =} \StringTok{"\# of vars"}\NormalTok{,}\AttributeTok{ylab =} \StringTok{"Adj\_rsqr"}\NormalTok{,}\AttributeTok{type=}\StringTok{"l"}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(reg\_sum}\SpecialCharTok{$}\NormalTok{cp,}\AttributeTok{xlab=}\StringTok{"\# of vars"}\NormalTok{,}\AttributeTok{ylab=}\StringTok{"Cp"}\NormalTok{,}\AttributeTok{type=}\StringTok{"l"}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(reg\_sum}\SpecialCharTok{$}\NormalTok{bic, }\AttributeTok{xlab=}\StringTok{"\# of var"}\NormalTok{,}\AttributeTok{ylab=}\StringTok{"BIC"}\NormalTok{,}\AttributeTok{type=}\StringTok{"l"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Final_Project_files/figure-latex/unnamed-chunk-15-1.pdf}}
+
+These results are showing that some of the higher order models are
+better fits like 5 in BIC, 7 in Cp but the most obvious change is with
+the 3 variable model. Lets try stepwise selection.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{null }\OtherTok{\textless{}{-}}\FunctionTok{lm}\NormalTok{(Fare }\SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{, }\AttributeTok{data=}\NormalTok{train)}
+\NormalTok{full }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Fare }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }\AttributeTok{data=}\NormalTok{train)}
+
+\FunctionTok{stepAIC}\NormalTok{(full, }\AttributeTok{scope =} \FunctionTok{list}\NormalTok{(}\AttributeTok{lower =}\NormalTok{ null, }\AttributeTok{upper=}\NormalTok{ full),}\AttributeTok{direction =} \StringTok{"both"}\NormalTok{, }\AttributeTok{trace =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Fare ~ Trip_Seconds + Trip_Miles + Additional_Charges + 
+##     Shared_Trip_Authorized + Shared_Trip_Match + dow, data = train)
+## 
+## Coefficients:
+##                (Intercept)                Trip_Seconds  
+##                   5.782927                    0.004662  
+##                 Trip_Miles          Additional_Charges  
+##                   0.963446                    0.153763  
+## Shared_Trip_Authorizedtrue       Shared_Trip_Matchtrue  
+##                  -5.476556                   -4.232899  
+##                  dowMonday                 dowSaturday  
+##                   0.119332                    0.784337  
+##                  dowSunday                 dowThursday  
+##                   1.689476                   -0.745963  
+##                 dowTuesday                dowWednesday  
+##                  -0.498965                   -0.255236
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{predict.regsubsets }\OtherTok{=}\ControlFlowTok{function}\NormalTok{ (object ,newdata ,id ,...)\{}
+\NormalTok{form}\OtherTok{=}\FunctionTok{as.formula}\NormalTok{ (object}\SpecialCharTok{$}\NormalTok{call [[}\DecValTok{2}\NormalTok{]])}
+\NormalTok{mat}\OtherTok{=}\FunctionTok{model.matrix}\NormalTok{ (form ,newdata )}
+\NormalTok{coefi }\OtherTok{=}\FunctionTok{coef}\NormalTok{(object ,}\AttributeTok{id=}\NormalTok{id)}
+\NormalTok{xvars }\OtherTok{=}\FunctionTok{names}\NormalTok{ (coefi )}
+\NormalTok{mat[,xvars ]}\SpecialCharTok{\%*\%}\NormalTok{ coefi}
+\NormalTok{\}}
+
+
+\NormalTok{k}\OtherTok{=} \DecValTok{10}
+\NormalTok{folds}\OtherTok{=}\FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{k,}\FunctionTok{nrow}\NormalTok{(train),}\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{cv.errors}\OtherTok{=}\FunctionTok{matrix}\NormalTok{(}\ConstantTok{NA}\NormalTok{,k,}\DecValTok{11}\NormalTok{,}\AttributeTok{dimnames=}\FunctionTok{list}\NormalTok{(}\ConstantTok{NULL}\NormalTok{,}\FunctionTok{paste}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{11}\NormalTok{)))}
+\ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{k)\{}
+\NormalTok{best.fit}\OtherTok{=}\FunctionTok{regsubsets}\NormalTok{(Fare}\SpecialCharTok{\textasciitilde{}}\NormalTok{.,}\AttributeTok{data=}\NormalTok{train[folds}\SpecialCharTok{!=}\NormalTok{j,],}\AttributeTok{nvmax=}\DecValTok{11}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{11}\NormalTok{)\{}
+\NormalTok{pred}\OtherTok{=}\FunctionTok{predict}\NormalTok{(best.fit,train[folds}\SpecialCharTok{==}\NormalTok{j,],}\AttributeTok{id=}\NormalTok{i)}
+\NormalTok{cv.errors[j,i]}\OtherTok{=}\FunctionTok{mean}\NormalTok{((train}\SpecialCharTok{$}\NormalTok{Fare[folds}\SpecialCharTok{==}\NormalTok{j]}\SpecialCharTok{{-}}\NormalTok{pred)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\NormalTok{\}}
+\NormalTok{\}}
+\NormalTok{mean.cv.errors}\OtherTok{=}\FunctionTok{apply}\NormalTok{(cv.errors,}\DecValTok{2}\NormalTok{,mean)}
+\NormalTok{mean.cv.errors}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        1        2        3        4        5        6        7        8 
+## 77.23545 72.64004 69.28467 69.42865 69.30912 69.03773 68.52978 68.59183 
+##        9       10       11 
+## 68.73178 68.74530 68.73758
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(mean.cv.errors,}\AttributeTok{type=}\StringTok{"b"}\NormalTok{)}
+\FunctionTok{which.min}\NormalTok{(mean.cv.errors)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 7 
+## 7
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{points}\NormalTok{(}\DecValTok{7}\NormalTok{,mean.cv.errors[}\DecValTok{7}\NormalTok{],}\AttributeTok{col=}\StringTok{"red"}\NormalTok{,}\AttributeTok{cex=}\DecValTok{2}\NormalTok{,}\AttributeTok{pch=}\DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Final_Project_files/figure-latex/unnamed-chunk-16-1.pdf}}
+
+The 8 variable model has the best mean.cv.errors.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reg.best }\OtherTok{=} \FunctionTok{regsubsets}\NormalTok{(Fare}\SpecialCharTok{\textasciitilde{}}\NormalTok{.,train,}\AttributeTok{nvmax=}\DecValTok{11}\NormalTok{)}
+\FunctionTok{coef}\NormalTok{(reg.best,}\DecValTok{7}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                (Intercept)               Trip_Seconds 
+##                5.521221404                0.004651536 
+##                 Trip_Miles         Additional_Charges 
+##                0.963793543                0.154063452 
+## Shared_Trip_Authorizedtrue      Shared_Trip_Matchtrue 
+##               -5.465101328               -4.217494625 
+##                dowSaturday                  dowSunday 
+##                1.053798586                1.958618473
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test}\SpecialCharTok{$}\NormalTok{predicted\_y\_cv\_subset }\OtherTok{\textless{}{-}}\FunctionTok{predict.regsubsets}\NormalTok{(reg.best, test, }\DecValTok{7}\NormalTok{)}
+\NormalTok{mse }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{((test}\SpecialCharTok{$}\NormalTok{Fare }\SpecialCharTok{{-}}\NormalTok{ test}\SpecialCharTok{$}\NormalTok{predicted\_y\_cv\_subset)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\NormalTok{mse}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 51.64421
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ss\_total }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{((test}\SpecialCharTok{$}\NormalTok{Fare }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(test}\SpecialCharTok{$}\NormalTok{Fare))}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\NormalTok{ss\_res }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{((test}\SpecialCharTok{$}\NormalTok{Fare }\SpecialCharTok{{-}}\NormalTok{ test}\SpecialCharTok{$}\NormalTok{predicted\_y)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\NormalTok{r\_squared }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ (ss\_res }\SpecialCharTok{/}\NormalTok{ ss\_total)}
+\NormalTok{r\_squared}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6314024
+\end{verbatim}
+
+R\^{}2 is still worse than LM, but MSE is slighly better. Less bias in
+the cv subset model.
+
+\subsection{CV Ridge}\label{cv-ridge}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\OtherTok{=}\FunctionTok{model.matrix}\NormalTok{(Fare}\SpecialCharTok{\textasciitilde{}}\NormalTok{.,train\_num)[,}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]}
+\NormalTok{y}\OtherTok{=}\NormalTok{train\_num}\SpecialCharTok{$}\NormalTok{Fare}
+\NormalTok{grid }\OtherTok{=} \DecValTok{10}\SpecialCharTok{\^{}}\FunctionTok{seq}\NormalTok{(}\DecValTok{10}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{,}\AttributeTok{length=}\DecValTok{100}\NormalTok{)}
+\NormalTok{ridge.mod }\OtherTok{=} \FunctionTok{glmnet}\NormalTok{(x,y, }\AttributeTok{alpha =} \DecValTok{0}\NormalTok{,}\AttributeTok{lambda=}\NormalTok{grid)}
+\NormalTok{cv.out.ridge }\OtherTok{=} \FunctionTok{cv.glmnet}\NormalTok{(x,y,}\AttributeTok{alpha=}\DecValTok{0}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(cv.out.ridge)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Final_Project_files/figure-latex/unnamed-chunk-18-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bestlam }\OtherTok{=}\NormalTok{ cv.out.ridge}\SpecialCharTok{$}\NormalTok{lambda.min}
+\NormalTok{bestlam}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.091826
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test\_x }\OtherTok{=}\FunctionTok{model.matrix}\NormalTok{(Fare}\SpecialCharTok{\textasciitilde{}}\NormalTok{.,test\_num)[,}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]}
+\NormalTok{test\_x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Trip_Seconds Trip_Miles Tip Additional_Charges Trips_Pooled
+## 6            2260       32.4  12              28.12            1
+## 10            421        1.3   0               1.23            1
+## 24            908        3.6   2               1.18            2
+## 25            592        1.4   0               2.94            1
+## 30            541        1.8   0               1.23            1
+## 32           1342        9.1   0               3.30            1
+## 70            300        0.9   0               2.49            1
+## 85           1379        8.1   0               7.02            1
+## 123           980        2.2   3               4.46            1
+## 154           919        6.6   0               5.35            1
+## 155          2254        9.3   0               4.71            1
+## 172          1024        5.1   3               3.45            1
+## 178           482        4.1   0               3.89            1
+## 188          2690       13.5   0               4.49            2
+## 189           924        3.5   0               4.87            1
+## 195          1072        6.0   6               7.90            1
+## 200           444        0.7   3               4.89            1
+## 211          1300        4.9   2               1.23            1
+## 215           756        2.1   2               2.78            1
+## 257          1273        8.2  10               2.98            1
+## 263           783        2.5   2               1.23            1
+## 283           943       10.6   0               6.83            1
+## 288           908        4.7   0               1.23            1
+## 295           366        1.1   3               3.77            1
+## 297           309        1.3   0               1.23            1
+## 301           459        1.5   3               2.01            1
+## 331          2069       10.2   6              12.23            1
+## 337           371        0.7   0               2.07            1
+## 344          1868       13.0  14               1.23            1
+## 362           697        2.3   0               2.52            1
+## 367           731        4.2   0               3.29            1
+## 370          1269       16.5   0              10.77            1
+## 380          1421        5.6   0               2.98            1
+## 385          1344        6.9   0               2.82            1
+## 395           532        1.3   3               3.76            1
+## 424           521        1.5   0               2.15            1
+## 429          1652        7.2   0               6.00            1
+## 433          1828       18.0   0               7.98            1
+## 447          2204       13.2   0               4.57            1
+## 475          1289       10.2   0               7.10            1
+## 497          1973        9.0   0               1.23            1
+## 523            97        0.4   0               2.68            1
+## 527           527        1.3   3               4.35            1
+## 531           759        3.0   0               1.23            1
+## 542           492        2.0   0               4.27            1
+## 545          1197        4.4   0               3.08            1
+## 555           413        3.0   0               3.70            1
+## 558          1814        8.6   0               5.89            1
+## 602           681        3.2   0               3.93            1
+## 603          1498       11.1   0               1.23            1
+## 605           342        1.4   0               3.70            1
+## 613           646        3.4   0               2.97            1
+## 622           421        2.6   0               1.23            1
+## 667           976        6.6   0               5.08            1
+## 668           324        1.3   0               1.98            1
+## 695          1625       17.0   9              11.23            1
+## 697          1599        5.0   0               4.50            1
+## 698          2512       14.4   5               6.23            1
+## 700          1517       16.0   0               1.23            1
+## 701           421        2.0   0               2.61            1
+## 716          1154        9.8   0               1.23            1
+## 734          1697        9.6   0               2.98            1
+## 735          3107       16.4   0               5.55            1
+## 742           283        1.1   0               1.88            1
+## 755           288        0.8   3               2.16            1
+## 772           755        6.7   3               3.08            1
+## 803           353        1.2   0               2.82            1
+## 806          1643       22.5   0               7.13            1
+## 807          3205       14.8   0               9.98            1
+## 814          2759       34.6   0               6.45            1
+## 830           605        3.8   0               6.52            1
+## 833          2454        9.9   0               4.52            2
+## 834           788        3.4   0               3.10            1
+## 870          1050        3.8   0               1.23            1
+## 872          1911       16.5   0               7.06            1
+## 884           459        2.8   0               3.32            1
+## 888           671        2.0   1               4.46            1
+## 893          1082       12.2  10              22.07            1
+## 926           573        2.8   0               3.96            1
+## 929           689        2.7   0               5.06            1
+## 933           658        3.0   0               3.83            1
+## 943           338        0.8   0               2.49            1
+## 962           982        3.6   0               5.42            1
+## 963          1171        9.4   0               4.81            1
+## 964          1779        6.9   0               5.34            2
+## 965           339        0.7   1               2.50            1
+## 973          2650       13.7   0               5.56            1
+## 982           476        1.8   1               2.73            1
+## 1000         1836        5.6   0               6.14            1
+## 1001          289        1.0   0               1.23            1
+## 1003         3057       37.4   7              10.50            1
+## 1005         1629       10.0   0               8.76            1
+## 1034         1544       11.6   0               5.95            1
+## 1044         1162        4.7   0               2.71            1
+## 1058         3241       36.5   0               4.75            1
+## 1063          778        2.4   0               3.45            1
+## 1070          904        2.2   0               1.23            1
+## 1071          319        1.0   0               8.10            1
+## 1074          712        4.4   0               2.90            1
+## 1077          370        0.8   5               1.23            1
+## 1083          943        3.5   0               1.94            2
+## 1086         1670        6.4   8               6.17            1
+## 1097          357        1.6   0               1.84            1
+## 1100         1070        7.1   0               5.48            1
+## 1102         1768       12.9   0               6.11            1
+## 1106         1779        8.4   0               4.17            1
+## 1130         1089        5.5   0               7.08            1
+## 1132         2254       13.4   7               5.46            1
+## 1138         1007        8.2   4               1.23            1
+## 1160         1148       13.9   0              19.64            1
+## 1164          271        1.3   0               1.73            1
+## 1173          771        2.1   0               4.23            1
+## 1175          744        2.6   0               1.23            1
+## 1185         1562       18.0   0               1.23            1
+## 1193          804        7.4   0               3.34            1
+## 1205         1702        9.4   0               5.06            1
+## 1212          991        2.8   0               5.50            1
+## 1223         1107        4.5   6               5.58            1
+## 1227          292        1.3   0               2.78            1
+## 1240         3985       14.5  20               6.23            1
+## 1241         1985        8.3   0               6.75            1
+## 1245          147        0.6   0               3.62            1
+## 1248          641        1.8   2               1.23            1
+## 1249          704        1.9   3               4.26            1
+## 1263          870        2.3   0               2.98            1
+## 1278          668        1.5   3               4.94            1
+## 1283          510        1.4   0               2.98            1
+## 1293         2251       19.2   0               6.23            1
+## 1307          880        3.3   3               1.23            1
+## 1311          704        2.2   0               1.23            1
+## 1315          757        2.2   0               2.98            1
+## 1321         1977       16.3   5               5.49            1
+## 1322          671        1.4   0               3.82            1
+## 1325          985        4.4   0               1.23            1
+## 1335          908        7.2   0               5.70            1
+## 1337          719        4.6   0               3.31            1
+## 1339          995        5.1   0               1.23            1
+## 1357         1815       17.2   7              22.26            1
+## 1397          586        2.0   0               1.23            1
+## 1409          426        1.5   2               1.23            1
+## 1413          719        4.3   0               4.57            1
+## 1415          484        1.0   3               2.65            1
+## 1418         3608       33.3   0               8.47            1
+## 1429         4337       40.4   5               7.23            1
+## 1430         1549       14.8   0               6.15            1
+## 1449         1286       11.7   0               1.23            1
+## 1455         2164       31.9   8               5.72            1
+## 1467          592        3.5   0               6.23            1
+## 1476          814        4.8   0               1.23            1
+## 1484          496        4.3   0               1.23            1
+## 1489          632        3.7   0               4.11            1
+## 1493         2087        9.0   0               8.04            1
+## 1499         1679       12.4   0               3.93            2
+## 1502          396        1.6   0               2.89            1
+## 1505          734        1.1   1               4.24            1
+## 1515         1216        3.3   0               5.14            1
+## 1519          773        3.0   3               4.82            1
+## 1520         1637       15.6   7              17.37            1
+## 1548          729        3.7   0               2.98            1
+## 1564         1008        5.6   0               2.73            1
+## 1588          774        2.7   0               1.23            1
+## 1613         1632       10.3   0               5.08            1
+## 1623         1421       13.0   4               1.23            1
+## 1644         1787        4.2   0               1.91            2
+## 1651         1664       15.4   5               3.74            1
+## 1674          831        7.4   0               2.66            1
+## 1699         1390        7.7   4               5.36            1
+## 1703         1315       16.8   0              16.98            1
+## 1710         3173       21.3   9              13.99            1
+## 1719          954        3.0   0               2.98            1
+## 1726         2029        8.5   0               1.23            1
+## 1729         1063        3.5   0               1.23            1
+## 1743         2686        9.7  10               6.23            1
+## 1766         2119       18.1   9               4.82            1
+## 1767          316        1.5   0               9.24            1
+## 1783         1274        2.3   0               2.98            1
+## 1789          935        3.1   5               3.32            1
+## 1790          757        2.3   0              14.67            1
+## 1804         1745       13.0   0               1.96            3
+## 1813         1054        4.9   0               1.54            2
+## 1824         1309        9.7   4               1.23            1
+## 1846          629        3.4   0               5.64            1
+## 1859         1560       20.2   0               7.45            1
+## 1863         2126       18.8   0               7.98            1
+## 1869          690        4.7   0               4.60            1
+## 1870         1175        6.7   0               7.99            1
+## 1873         2083        5.2   3               2.98            1
+## 1878          710        3.8   0               1.23            1
+## 1902          455        1.3   3               2.89            1
+## 1919         2631       13.9   7               5.24            1
+## 1922         1027        3.2   3               5.80            1
+## 1927          759        2.8   1               4.58            1
+## 1928          660        2.6   3               4.12            1
+## 1930          511        3.5   0               1.23            1
+## 1935          436        1.4   0               2.98            1
+## 1954          351        1.3   0               1.23            1
+## 1985         1377        6.0   0               1.23            1
+## 1992          912        4.9   0               1.23            1
+## 1994          446        0.9   0               1.23            1
+## 1996          375        1.2   5               2.27            1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ridge.pred}\OtherTok{=}\FunctionTok{predict}\NormalTok{(ridge.mod,}\AttributeTok{s=}\NormalTok{bestlam,}\AttributeTok{newx=}\NormalTok{test\_x)}
+\NormalTok{mse\_ridge }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{((test\_num}\SpecialCharTok{$}\NormalTok{Fare }\SpecialCharTok{{-}}\NormalTok{ ridge.pred)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\FunctionTok{paste}\NormalTok{(}\StringTok{"MSE="}\NormalTok{,mse\_ridge)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "MSE= 44.5698834306074"
+\end{verbatim}
+
+Very high MSE, not a lot of variables so do no really need ridge
+anyways.
+
+\subsection{PCR/pls}\label{pcrpls}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pcr.mod}\OtherTok{=}\FunctionTok{pcr}\NormalTok{(Fare}\SpecialCharTok{\textasciitilde{}}\NormalTok{.,}\AttributeTok{data =}\NormalTok{ train,}\AttributeTok{scale=}\ConstantTok{TRUE}\NormalTok{,}\AttributeTok{validation=}\StringTok{"CV"}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(pcr.mod)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Data:    X dimension: 1798 12 
+##  Y dimension: 1798 1
+## Fit method: svdpc
+## Number of components considered: 12
+## 
+## VALIDATION: RMSEP
+## Cross-validated using 10 random segments.
+##        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps
+## CV           14.02    13.93    8.920    8.877    8.746    8.749    8.749
+## adjCV        14.02    13.94    8.914    8.871    8.731    8.740    8.745
+##        7 comps  8 comps  9 comps  10 comps  11 comps  12 comps
+## CV       8.745    8.387    8.387     8.367     8.336     8.337
+## adjCV    8.740    8.382    8.383     8.363     8.330     8.332
+## 
+## TRAINING: % variance explained
+##       1 comps  2 comps  3 comps  4 comps  5 comps  6 comps  7 comps  8 comps
+## X     20.6891    39.56    49.89    59.60    69.12    78.54    87.95    92.52
+## Fare   0.9291    59.90    60.32    61.65    61.66    61.67    61.79    64.81
+##       9 comps  10 comps  11 comps  12 comps
+## X       96.19     97.73     99.14    100.00
+## Fare    64.81     65.14     65.44     65.44
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{validationplot}\NormalTok{(pcr.mod,}\AttributeTok{val.type=}\StringTok{"MSEP"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Final_Project_files/figure-latex/unnamed-chunk-19-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model\_pcr\_mse }\OtherTok{=} \FunctionTok{MSEP}\NormalTok{(pcr.mod,}\AttributeTok{estimate=}\StringTok{"CV"}\NormalTok{)}
+\NormalTok{model\_pcr\_mse}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  
+##      196.59       194.05        79.56        78.80        76.49        76.55  
+##     6 comps      7 comps      8 comps      9 comps     10 comps     11 comps  
+##       76.54        76.47        70.33        70.35        70.00        69.48  
+##    12 comps  
+##       69.51
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pcr.pred}\OtherTok{=}\FunctionTok{predict}\NormalTok{(pcr.mod,test,}\AttributeTok{ncomp=}\DecValTok{11}\NormalTok{)}
+\NormalTok{mse\_pcr }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{((test}\SpecialCharTok{$}\NormalTok{Fare }\SpecialCharTok{{-}}\NormalTok{ pcr.pred)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\FunctionTok{paste}\NormalTok{(}\StringTok{"MSE="}\NormalTok{,mse\_pcr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "MSE= 52.0691020843782"
+\end{verbatim}
+
+The model with 11 principal components performs the best.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pls.mod}\OtherTok{=}\FunctionTok{plsr}\NormalTok{(Fare}\SpecialCharTok{\textasciitilde{}}\NormalTok{.,}\AttributeTok{data =}\NormalTok{ train,}\AttributeTok{scale=}\ConstantTok{TRUE}\NormalTok{,}\AttributeTok{validation=}\StringTok{"CV"}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(pls.mod)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Data:    X dimension: 1798 12 
+##  Y dimension: 1798 1
+## Fit method: kernelpls
+## Number of components considered: 12
+## 
+## VALIDATION: RMSEP
+## Cross-validated using 10 random segments.
+##        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps
+## CV           14.02    8.609    8.412    8.352    8.322    8.323    8.323
+## adjCV        14.02    8.606    8.404    8.348    8.320    8.318    8.318
+##        7 comps  8 comps  9 comps  10 comps  11 comps  12 comps
+## CV       8.324    8.324    8.324     8.324     8.324     8.324
+## adjCV    8.319    8.319    8.319     8.320     8.320     8.320
+## 
+## TRAINING: % variance explained
+##       1 comps  2 comps  3 comps  4 comps  5 comps  6 comps  7 comps  8 comps
+## X       18.78    26.78    39.89    53.32    55.84    65.56    69.02    76.53
+## Fare    62.74    64.82    65.18    65.31    65.43    65.44    65.44    65.44
+##       9 comps  10 comps  11 comps  12 comps
+## X       80.15     84.69     90.57    100.00
+## Fare    65.44     65.44     65.44     65.44
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{validationplot}\NormalTok{(pls.mod,}\AttributeTok{val.type=}\StringTok{"MSEP"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Final_Project_files/figure-latex/unnamed-chunk-20-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model\_pls\_mse }\OtherTok{=} \FunctionTok{MSEP}\NormalTok{(pls.mod,}\AttributeTok{estimate=}\StringTok{"CV"}\NormalTok{)}
+\NormalTok{model\_pls\_mse}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  
+##      196.59        74.12        70.76        69.75        69.26        69.27  
+##     6 comps      7 comps      8 comps      9 comps     10 comps     11 comps  
+##       69.27        69.28        69.29        69.29        69.29        69.29  
+##    12 comps  
+##       69.29
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pls.pred}\OtherTok{=}\FunctionTok{predict}\NormalTok{(pls.mod,test,}\AttributeTok{ncomp=}\DecValTok{2}\NormalTok{)}
+\NormalTok{mse\_pls }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{((test}\SpecialCharTok{$}\NormalTok{Fare }\SpecialCharTok{{-}}\NormalTok{ pls.pred)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\FunctionTok{paste}\NormalTok{(}\StringTok{"MSE="}\NormalTok{,mse\_pls)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "MSE= 52.564886135774"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ncomp.onesigma }\OtherTok{\textless{}{-}} \FunctionTok{selectNcomp}\NormalTok{(pls.mod, }\AttributeTok{method =} \StringTok{"onesigma"}\NormalTok{, }\AttributeTok{plot =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Final_Project_files/figure-latex/unnamed-chunk-20-2.pdf}}
+
+Analyzing the msep validation plot, 2 principal components appear to be
+enough.
+
+\subsection{Final model}\label{final-model}
+
+The LM was sufficient for my purposes so lets summarize it and interpret
+its coefficients. Remove DOW also since its relatively insignificant.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod\_lm\_fin }\OtherTok{=} \FunctionTok{lm}\NormalTok{(Fare}\SpecialCharTok{\textasciitilde{}}\NormalTok{Shared\_Trip\_Authorized}\SpecialCharTok{+}\NormalTok{Trip\_Miles}\SpecialCharTok{+}\NormalTok{Trip\_Seconds,}\AttributeTok{data=}\NormalTok{train)}
+\FunctionTok{summary}\NormalTok{(mod\_lm\_fin)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Fare ~ Shared_Trip_Authorized + Trip_Miles + Trip_Seconds, 
+##     data = train)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -27.326  -4.232  -1.547   2.559  54.714 
+## 
+## Coefficients:
+##                              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                 6.5967120  0.3491157  18.895   <2e-16 ***
+## Shared_Trip_Authorizedtrue -7.7978116  0.8298213  -9.397   <2e-16 ***
+## Trip_Miles                  1.0212039  0.0448049  22.792   <2e-16 ***
+## Trip_Seconds                0.0044736  0.0003942  11.349   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 8.32 on 1794 degrees of freedom
+## Multiple R-squared:  0.6483, Adjusted R-squared:  0.6477 
+## F-statistic:  1102 on 3 and 1794 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test}\SpecialCharTok{$}\NormalTok{lm\_preds\_fin }\OtherTok{=} \FunctionTok{predict}\NormalTok{(mod\_lm\_fin,}\AttributeTok{newdata =}\NormalTok{ test)}
+\NormalTok{mse }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{((test}\SpecialCharTok{$}\NormalTok{Fare }\SpecialCharTok{{-}}\NormalTok{ test}\SpecialCharTok{$}\NormalTok{lm\_preds\_fin)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\FunctionTok{paste}\NormalTok{(}\StringTok{"MSE="}\NormalTok{,mse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "MSE= 51.3003840981791"
+\end{verbatim}
+
+\end{document}

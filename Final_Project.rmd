@@ -1,0 +1,309 @@
+---
+title: "Untitled"
+author: " Joe Paul"
+date: "08/01/2024"
+output: 
+    pdf_document:
+        keep_tex: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Setup
+```{r libraries}
+library(data.table)
+library(sqldf)
+library(ggplot2)
+library(GGally)
+library(leaps)
+library(MASS)
+library(glmnet)
+library(pls)
+library(boot)
+library(gridExtra)
+library(splines)
+library(caret)
+library(alr4)
+```
+
+
+## Read Data
+
+This data csv is 2GB, way too big to read in on its own, so lets filter it down a bit.
+```{r read}
+csv_pth = "C:\\Users\\jpaul4\\Downloads\\Transportation_Network_Providers_-_Trips__2023-__20240801.csv"
+
+#Get coloumn names
+top_10 = sqldf::read.csv.sql(csv_pth, sql= "select * from file limit 10")
+```
+
+## Select a sample from this CSV to use as our training data
+
+I selected a random set of 2000 rows using the SQL command "SELECT * FROM chic_trips ORDER BY RANDOM() LIMIT 2000;" for training and testing.
+
+```{r}
+csv_sample = "C:\\Users\\jpaul4\\Box\\Summer 2024\\S2405\\Projects\\Final Project\\result_set.csv"
+trips = read.csv(csv_sample)
+head(trips)
+summary(trips)
+```
+
+## Add some calc columns
+
+```{r}
+trips$Trip_Start_Timestamp = as.Date(trips$Trip_Start_Timestamp, format="%m/%d/%Y")
+trips$dow = weekdays(trips$Trip_Start_Timestamp)
+head(trips)
+summary(trips)
+```
+
+## Get rid of some not useful columns that contain info like identifiers and coordinates
+
+```{r}
+trips_int = trips[,c("Trip_Seconds","Trip_Miles","Percent_Time_Chicago","Percent_Distance_Chicago","Fare","Tip","Additional_Charges","Trip_Total","Trips_Pooled","Shared_Trip_Authorized","Shared_Trip_Match","dow")]
+summary(trips_int)
+```
+
+## Check if the trip_total column is just the sum of the other three cost columns and get rid of it if so to not cause dependent columns
+
+```{r}
+trips_int$total_check = with(trips_int,trips_int$Fare + trips_int$Tip + trips_int$Tip + trips_int$Additional_Charges-trips_int$Trip_Total)
+summary(trips_int$total_check)
+```
+
+## Its inconsitent so we will clean by just dropping this column to be safe
+
+```{r}
+trips_int$total_check = NULL
+trips_int$Trip_Total = NULL
+```
+
+## Check for nulls
+
+```{r}
+head(trips_int)
+sum(is.na(trips_int))
+trips_int=trips_int[complete.cases(trips_int),]
+nrow(trips_int)
+
+```
+
+## Create test and train samples
+
+```{r}
+set.seed(1)
+train_ind = sample(1:nrow(trips_int),round(nrow(trips_int)*0.9))
+train <- trips_int[train_ind,]
+test <- trips_int[-train_ind,]
+
+```
+
+## Do some exploration
+
+```{r}
+ggpairs(train)
+```
+
+## the two percent columns also do not seem useful so lets get rid of them too. 
+
+```{r}
+
+
+trips_int$Percent_Time_Chicago = NULL
+trips_int$Percent_Distance_Chicago = NULL
+train <- trips_int[train_ind,]
+test <- trips_int[-train_ind,]
+```
+
+## I want to create a fare model from this data to use in my research. Lets find out what variables are important to fare.
+
+
+```{r}
+mod = lm(Fare~.,data = train)
+summary(mod)
+```
+
+DOW doesn't appear to affect things but tip does, and thats of concern because there is an intuitive relationship between tip and fare. So we should drop this. But lets check correlation to be sure.
+
+```{r}
+
+train_num = subset(train, select = -c(dow,Shared_Trip_Authorized,Shared_Trip_Match))
+test_num = subset(test, select = -c(dow,Shared_Trip_Authorized,Shared_Trip_Match))
+
+cor_mat = cor(train_num)
+cor_mat
+```
+
+Trip miles and trip seconds are highly correlated but thats fine, most fare models use both so we will hold onto it for now.
+```{r}
+trips_int$Tip = NULL
+train <- trips_int[train_ind,]
+test <- trips_int[-train_ind,]
+mod_lm = lm(Fare~.,data=train)
+summary(mod_lm)
+```
+
+## LM
+Only Shared_Trip_Authorized, trip_miles, and trip_seconds were significant so lets use these only. Additional_Charges is significant but this is not a useful variable for our use case because this is not something we could know ahead of time or it would probably be fixed (taxes and fees). Sunday is now slightly significant so we will include that too.
+
+```{r}
+mod_lm = lm(Fare~dow+Shared_Trip_Authorized+Trip_Miles+Trip_Seconds,data=train)
+summary(mod_lm)
+```
+
+Simple LM has r^2 of only 0.65, lets check its predictive accuracy.
+
+```{r}
+test$lm_preds = predict(mod_lm,newdata = test)
+mse <- mean((test$Fare - test$lm_preds)^2)
+paste("MSE=",mse)
+
+```
+
+
+## Lets use subsets to check and see if anything else is helpful
+
+```{r}
+regfit_full = regsubsets(Fare~.,train)
+summary(regfit_full)
+
+regfit_full = regsubsets(Fare~.,data = train, nvmax=8)
+reg_sum = summary(regfit_full)
+names(reg_sum)
+reg_sum$rsq
+
+par(mfrow=c(2,2))
+plot(reg_sum$rss,xlab = "# of vars",ylab="RSS",type="l")
+plot(reg_sum$adjr2,xlab = "# of vars",ylab = "Adj_rsqr",type="l")
+plot(reg_sum$cp,xlab="# of vars",ylab="Cp",type="l")
+plot(reg_sum$bic, xlab="# of var",ylab="BIC",type="l")
+
+
+```
+
+These results are showing that some of the higher order models are better fits  like 5 in BIC, 7 in Cp but the most obvious change is with the 3 variable model. Lets try stepwise selection.
+
+```{r}
+null <-lm(Fare ~ 1, data=train)
+full <- lm(Fare ~ ., data=train)
+
+stepAIC(full, scope = list(lower = null, upper= full),direction = "both", trace = FALSE)
+
+predict.regsubsets =function (object ,newdata ,id ,...){
+form=as.formula (object$call [[2]])
+mat=model.matrix (form ,newdata )
+coefi =coef(object ,id=id)
+xvars =names (coefi )
+mat[,xvars ]%*% coefi
+}
+
+
+k= 10
+folds=sample(1:k,nrow(train),replace = TRUE)
+cv.errors=matrix(NA,k,11,dimnames=list(NULL,paste(1:11)))
+for (j in 1:k){
+best.fit=regsubsets(Fare~.,data=train[folds!=j,],nvmax=11)
+for (i in 1:11){
+pred=predict(best.fit,train[folds==j,],id=i)
+cv.errors[j,i]=mean((train$Fare[folds==j]-pred)^2)
+}
+}
+mean.cv.errors=apply(cv.errors,2,mean)
+mean.cv.errors
+par(mfrow=c(1,1))
+plot(mean.cv.errors,type="b")
+which.min(mean.cv.errors)
+points(7,mean.cv.errors[7],col="red",cex=2,pch=20)
+```
+
+The 8 variable model has the best mean.cv.errors. 
+
+
+```{r}
+
+
+
+reg.best = regsubsets(Fare~.,train,nvmax=11)
+coef(reg.best,7)
+test$predicted_y_cv_subset <-predict.regsubsets(reg.best, test, 7)
+mse <- mean((test$Fare - test$predicted_y_cv_subset)^2)
+mse
+ss_total <- sum((test$Fare - mean(test$Fare))^2)
+ss_res <- sum((test$Fare - test$predicted_y)^2)
+r_squared <- 1 - (ss_res / ss_total)
+r_squared
+
+```
+
+R^2 is still worse than LM, but MSE is slighly better. Less bias in the cv subset model.
+
+## CV Ridge
+
+```{r}
+x=model.matrix(Fare~.,train_num)[,-1]
+y=train_num$Fare
+grid = 10^seq(10,-2,length=100)
+ridge.mod = glmnet(x,y, alpha = 0,lambda=grid)
+cv.out.ridge = cv.glmnet(x,y,alpha=0)
+plot(cv.out.ridge)
+bestlam = cv.out.ridge$lambda.min
+bestlam
+
+test_x =model.matrix(Fare~.,test_num)[,-1]
+test_x
+
+ridge.pred=predict(ridge.mod,s=bestlam,newx=test_x)
+mse_ridge <- mean((test_num$Fare - ridge.pred)^2)
+paste("MSE=",mse_ridge)
+```
+
+Very high MSE, not a lot of variables so do no really need ridge anyways.
+
+## PCR/pls
+
+```{r}
+pcr.mod=pcr(Fare~.,data = train,scale=TRUE,validation="CV")
+summary(pcr.mod)
+validationplot(pcr.mod,val.type="MSEP")
+
+model_pcr_mse = MSEP(pcr.mod,estimate="CV")
+model_pcr_mse
+
+pcr.pred=predict(pcr.mod,test,ncomp=11)
+mse_pcr <- mean((test$Fare - pcr.pred)^2)
+paste("MSE=",mse_pcr)
+```
+
+The model with 11 principal components performs the best. 
+
+```{r}
+pls.mod=plsr(Fare~.,data = train,scale=TRUE,validation="CV")
+summary(pls.mod)
+validationplot(pls.mod,val.type="MSEP")
+
+model_pls_mse = MSEP(pls.mod,estimate="CV")
+model_pls_mse
+
+pls.pred=predict(pls.mod,test,ncomp=2)
+mse_pls <- mean((test$Fare - pls.pred)^2)
+paste("MSE=",mse_pls)
+
+
+ncomp.onesigma <- selectNcomp(pls.mod, method = "onesigma", plot = TRUE)
+```
+
+Analyzing the msep validation plot, 2 principal components appear to be enough. 
+
+## Final model
+The LM was sufficient for my purposes so lets summarize it and interpret its coefficients. Remove DOW also since its relatively insignificant.
+
+```{r}
+mod_lm_fin = lm(Fare~Shared_Trip_Authorized+Trip_Miles+Trip_Seconds,data=train)
+summary(mod_lm_fin)
+test$lm_preds_fin = predict(mod_lm_fin,newdata = test)
+mse <- mean((test$Fare - test$lm_preds_fin)^2)
+paste("MSE=",mse)
+
+```
